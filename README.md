@@ -14,3 +14,5 @@ This way it can be used from Python, Ruby or Elixir apps.
 
 There should be some tight query timeout, and maybe some injection
 prevention measures mainly to avoid accidents (requests are already signed).
+
+I will use [exrm](https://github.com/bitwalker/exrm) to manage releases.
