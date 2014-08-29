@@ -17,7 +17,8 @@ defmodule Sequeler do
 
     ```
       create database testdb;
-      grant all privileges on testdb.* to 'testuser'@'localhost' identified by 'testpassword' with grant option;
+      grant all privileges on testdb.* to 'testuser'@'localhost' identified by
+          'testpassword' with grant option;
       flush privileges;
     ```
 
@@ -55,7 +56,7 @@ defmodule Sequeler.Plug do
        " on ", :green, "http://localhost:4000", :reset]
      |> IO.ANSI.format(true) |> IO.puts
 
-     Plug.Adapters.Cowboy.http __MODULE__, []
+     Plug.Adapters.Cowboy.http __MODULE__, [] # 100 acceptors by default
    end
 
    get "/hello" do
