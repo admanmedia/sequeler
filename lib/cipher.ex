@@ -107,7 +107,8 @@ defmodule Cipher do
   end
 
   @doc """
-    Pop the last parameter, get an MD5 hash of the remains,
+    Pop the last parameter, which must be `signature`,
+    get an MD5 hash of the remains,
     decrypt popped value, and compare with the MD5 hash
   """
   def validate_signed_url(url, key, iv) do
