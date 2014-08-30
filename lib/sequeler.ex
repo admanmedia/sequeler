@@ -45,29 +45,34 @@ defmodule Sequeler do
 end
 
 defmodule Sequeler.Plug do
-   import Plug.Conn
-   import Plug.Logger
-   use Plug.Router
+  import Plug.Conn
+  import Plug.Logger
+  use Plug.Router
 
-   plug :match
-   plug :dispatch
+  plug :match
+  plug :dispatch
 
-   def start_link() do
-     ["Running ", :bright, "Sequeler", :reset,
-       " on ", :green, "http://localhost:4000", :reset]
-     |> IO.ANSI.format(true) |> IO.puts
+  def start_link() do
+    ["Running ", :bright, "Sequeler", :reset,
+      " on ", :green, "http://localhost:4000", :reset]
+    |> IO.ANSI.format(true) |> IO.puts
 
-     Plug.Adapters.Cowboy.http __MODULE__, [] # 100 acceptors by default
-   end
+    Plug.Adapters.Cowboy.http __MODULE__, [] # 100 acceptors by default
+  end
 
-   get "/query" do
-     result = :emysql.execute :db, "select sleep(2)"
-     IO.puts( inspect result )
-     json = Jazz.encode! result
-     send_resp(conn, 200, json)
-   end
+  get "/query" do
+    sql = "select sleep(2)"
 
-   match _ do
-     send_resp(conn, 404, "oops")
-   end
+    case :emysql.execute(:db,sql) do
+      {:result_packet, num, _, _, data} ->
+          json = Jazz.encode! data
+      _ -> json = "{}"
+    end
+
+    send_resp(conn, 200, json)
+  end
+
+  match _ do
+    send_resp(conn, 404, "oops")
+  end
 end
