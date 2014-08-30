@@ -1,5 +1,5 @@
 
-defmodule Cipher
+defmodule Cipher do
 
   @moduledoc """
     Helpers to encrypt and decrypt data.
@@ -24,20 +24,18 @@ defmodule Cipher
   """
   def decrypt(crypted, key, iv) do
     {:ok, decoded} = crypted |> URI.decode_www_form |> Base.decode64
-    :crypto.aes_cbc_128_decrypt key, iv, decoded |> depad
+    :crypto.aes_cbc_128_decrypt(key, iv, decoded) |> depad
   end
 
-  @doc """ Generates a suitable key for encryption based on given `phrase` """
+  @doc "Generates a suitable key for encryption based on given `phrase`"
   def generate_key(phrase) do
     :crypto.hash(:sha, phrase) |> hexdigest |> String.slice(0,16)
   end
 
-  @doc """ Generates a suitable iv for encryption based on given `phrase` """
-  def generate_iv(phrase) do: phrase |> String.slice(0,16)
+  @doc "Generates a suitable iv for encryption based on given `phrase`"
+  def generate_iv(phrase), do: phrase |> String.slice(0,16)
 
-  @doc """
-    Gets a usable string from a binary crypto hash
-  """
+  @doc "Gets an usable string from a binary crypto hash"
   def hexdigest(binary) do
     :lists.flatten(for b <- :erlang.binary_to_list(binary),
         do: :io_lib.format("~2.16.0B", [b]))
@@ -50,8 +48,9 @@ defmodule Cipher
     It uses PKCS#7 padding.
   """
   def pad(str) do
-    len = String.length(str)
-    pad_len = 16 - rem(len, 16)
+    len = byte_size(str)
+    utfs = len - String.length(str) # UTF chars are 2byte, ljust counts only 1
+    pad_len = 16 - rem(len, 16) - utfs
     String.ljust(str, len + pad_len, pad_len) # PKCS#7 padding
   end
 

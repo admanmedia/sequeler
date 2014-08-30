@@ -21,6 +21,6 @@ defmodule Sequeler.Mixfile do
     [ {:cowboy, "~> 1.0.0"}, # plug needs this to be listed before...
       {:plug, github: "elixir-lang/plug", tag: "v0.5.3"},
       {:emysql, github: "Eonblast/Emysql"},
-      {:jsex, github: "talentdeficit/jsex"} ]
+      {:jazz, github: "meh/jazz"} ]
   end
 end
