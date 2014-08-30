@@ -1,5 +1,5 @@
 defmodule CipherTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "the whole cipher stack" do
     s = Jazz.encode! %{:hola => "qué tal ｸｿ"}

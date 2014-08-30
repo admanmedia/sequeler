@@ -12,7 +12,7 @@ defmodule Cipher do
     and `generate_iv/1`.
   """
   def encrypt(data, key, iv) do
-    encrypted = :crypto.aes_cbc_128_encrypt key, iv, pad(data)
+    encrypted = :crypto.block_encrypt :aes_cbc128, key, iv, pad(data)
     encrypted |> Base.encode64 |> URI.encode_www_form
   end
 
@@ -24,7 +24,7 @@ defmodule Cipher do
   """
   def decrypt(crypted, key, iv) do
     {:ok, decoded} = crypted |> URI.decode_www_form |> Base.decode64
-    :crypto.aes_cbc_128_decrypt(key, iv, decoded) |> depad
+    :crypto.block_decrypt(:aes_cbc128, key, iv, decoded) |> depad
   end
 
   @doc "Generates a suitable key for encryption based on given `phrase`"
