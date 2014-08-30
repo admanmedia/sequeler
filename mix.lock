@@ -4,5 +4,5 @@
   "jazz": {:git, "git://github.com/meh/jazz.git", "e0cf73011f64868534cd229c458e205ce04a6619", []},
   "jsex": {:git, "git://github.com/talentdeficit/jsex.git", "661ce8565aaea22aa3576d4ad5e9d11065fe60f9", []},
   "jsx": {:package, "2.0.4"},
-  "plug": {:git, "git://github.com/elixir-lang/plug.git", "b7fba2a119d3cb990efab11c25e3806364adaf23", [tag: "v0.6.0"]},
+  "plug": {:package, "0.6.0"},
   "ranch": {:package, "1.0.0"}}

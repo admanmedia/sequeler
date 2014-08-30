@@ -19,7 +19,7 @@ defmodule Sequeler.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [ {:cowboy, "~> 1.0.0"}, # plug needs this to be listed before...
-      {:plug, github: "elixir-lang/plug", tag: "v0.6.0"},
+      {:plug, "0.6.0"},
       {:emysql, github: "Eonblast/Emysql"},
       {:jazz, github: "meh/jazz"} ]
   end

@@ -46,6 +46,7 @@ end
 
 defmodule Sequeler.Plug do
    import Plug.Conn
+   import Plug.Logger
    use Plug.Router
 
    plug :match
@@ -59,10 +60,11 @@ defmodule Sequeler.Plug do
      Plug.Adapters.Cowboy.http __MODULE__, [] # 100 acceptors by default
    end
 
-   get "/hello" do
+   get "/query" do
      result = :emysql.execute :db, "select sleep(2)"
      IO.puts( inspect result )
-     send_resp(conn, 200, "world")
+     json = Jazz.encode! result
+     send_resp(conn, 200, json)
    end
 
    match _ do

@@ -47,10 +47,10 @@ defmodule Cipher do
     Pad given string until its length is divisible by 16.
     It uses PKCS#7 padding.
   """
-  def pad(str) do
+  def pad(str, block_size \\ 16) do
     len = byte_size(str)
     utfs = len - String.length(str) # UTF chars are 2byte, ljust counts only 1
-    pad_len = 16 - rem(len, 16) - utfs
+    pad_len = block_size - rem(len, block_size) - utfs
     String.ljust(str, len + pad_len, pad_len) # PKCS#7 padding
   end
 
@@ -58,6 +58,61 @@ defmodule Cipher do
   def depad(str) do
     <<last>> = String.last str
     String.rstrip str, last
+  end
+
+  @doc """
+    Gets signature for given `base` and appends as a param to `url`.
+    Returns `url` with appended param.
+  """
+  def sign(url, base, key, iv) do
+    nexus = if String.contains?(url, "?"), do: "&", else: "?"
+    signature = :crypto.hash(:md5, base) |> hexdigest
+    {_, _, micros} = :os.timestamp
+    pepper = micros |> Integer.to_string |> String.rjust(8) # 8 characters long
+    crypted = signature <> pepper |> encrypt(key, iv)
+    url <> nexus <> "signature=" <> crypted
+  end
+
+  @doc """
+    An URL is signed by getting a hash from it, ciphering that hash,
+    and appending it as the last query parameter.
+  """
+  def sign_url(url, key, iv), do: sign(url, url, key, iv)
+
+  @doc """
+    Pops the signature param, which must be the last one.
+    Returns the remaining url and the popped signature.
+  """
+  def pop_signature(url) do
+    case String.split(url, "signature=") do
+      [dirty_url, popped] ->
+              clean_url = String.slice dirty_url, 0..-2 # remove nexus
+              {clean_url, popped}
+      _ -> {url, ""}
+    end
+  end
+
+  @doc """
+    Decrypts `ciphered`, and compare with an MD5 hash got from base.
+    Returns false if decryption failed, or if comparison failed. True otherwise.
+  """
+  def validate_signature(ciphered, base, key, iv) do
+    try do
+      plain = decrypt(ciphered, key, iv)
+      signature = :crypto.hash(:md5, base) |> hexdigest
+      signature == String.slice(plain, 0..-9) # removing pepper from parsed
+    rescue
+      _ -> false
+    end
+  end
+
+  @doc """
+    Pop the last parameter, get an MD5 hash of the remains,
+    decrypt popped value, and compare with the MD5 hash
+  """
+  def validate_signed_url(url, key, iv) do
+    {clean_url, popped} = pop_signature(url)
+    validate_signature(popped, clean_url, key, iv)
   end
 
 end
