@@ -44,6 +44,7 @@ defmodule Sequeler do
   end
 end
 
+
 defmodule Sequeler.Plug do
   import Plug.Conn
   import Plug.Logger
@@ -61,7 +62,7 @@ defmodule Sequeler.Plug do
   end
 
   get "/query" do
-    sql = "select sleep(2)"
+    sql = "select sleep(0.1)"
 
     case :emysql.execute(:db,sql) do
       {:result_packet, num, _, _, data} ->
