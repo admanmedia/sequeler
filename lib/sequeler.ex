@@ -1,4 +1,5 @@
-
+require IEx
+require Logger, as: L
 
 defmodule Sequeler do
   @moduledoc """
@@ -49,9 +50,14 @@ defmodule Sequeler.Plug do
   import Plug.Conn
   import Plug.Logger
   use Plug.Router
+  alias Cipher, as: C
 
   plug :match
   plug :dispatch
+
+  # handy to have them around
+  @k Application.get_env(:sequeler, :key_phrase) |> C.generate_key
+  @i Application.get_env(:sequeler, :iv_phrase) |> C.generate_iv
 
   def start_link() do
     ["Running ", :bright, "Sequeler", :reset,
@@ -62,15 +68,13 @@ defmodule Sequeler.Plug do
   end
 
   get "/query" do
-    sql = "select sleep(0.1)"
 
-    case :emysql.execute(:db,sql) do
-      {:result_packet, num, _, _, data} ->
-          json = Jazz.encode! data
-      _ -> json = "{}"
+    path = "/query?" <> conn.query_string
+
+    case C.validate_signed_url(path, @k, @i) do
+      true -> send_resp(conn, 200, "Authorized")
+      false -> send_resp(conn, 401, "Unauthorized")
     end
-
-    send_resp(conn, 200, json)
   end
 
   match _ do

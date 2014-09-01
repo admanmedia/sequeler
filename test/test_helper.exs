@@ -4,8 +4,8 @@ defmodule TestHelper do
   alias Cipher, as: C
 
   # handy to have them around
-  def k, do: C.generate_key "testingphrasesforencryption"
-  def i, do: C.generate_iv "testingphrasesforencryption"
+  def k, do: Application.get_env(:sequeler, :key_phrase) |> C.generate_key
+  def i, do: Application.get_env(:sequeler, :iv_phrase) |> C.generate_iv
 
   @doc "Performs GET request against given plug. Returns Conn."
   def get(url, plug, opts) do

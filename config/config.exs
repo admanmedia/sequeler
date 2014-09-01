@@ -21,3 +21,6 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :sequeler, :key_phrase, "testingphrasesforencryption"
+config :sequeler, :iv_phrase, "testingphrasesforencryption"
