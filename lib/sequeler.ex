@@ -70,14 +70,17 @@ defmodule Sequeler.Plug do
   get "/query" do
 
     path = "/query?" <> conn.query_string
+    valid? = C.validate_signed_url(path, @k, @i)
 
-    case C.validate_signed_url(path, @k, @i) do
-      true -> send_resp(conn, 200, "Authorized")
-      false -> send_resp(conn, 401, "Unauthorized")
+    conn = case valid? do
+      true -> conn |> fetch_params |> Sequeler.Controller.query
+      false -> resp(conn, 401, "Unauthorized")
     end
+
+    send_resp conn
   end
 
   match _ do
-    send_resp(conn, 404, "oops")
+    send_resp(conn, 404, "Not Found")
   end
 end

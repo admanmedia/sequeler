@@ -25,11 +25,9 @@ defmodule SequelerTest do
   end
 
   test "performs query" do
-    L.warn "TODO"
-
     # prepare table
     :emysql.execute :db, "drop table if exists test"
-    :emysql.execute :db, "create table test (i int) engine=memory"
+    :emysql.execute :db, "create table test (i int, a varchar(20)) engine=memory"
 
     # prepare query
     sql = "select * from test" |> URI.encode_www_form
@@ -39,17 +37,17 @@ defmodule SequelerTest do
     conn = get(url, P, @opts)
     assert conn.state == :sent
     assert conn.status == 200
-    assert get_resp_header(conn,"content-type") == "application/json"
+    assert get_resp_header(conn,"content-type") == ["application/json"]
     assert Jazz.decode!(conn.resp_body) == []
 
     # create data
-    :emysql.execute :db, "insert into test (i) values (1)"
+    :emysql.execute :db, "insert into test (i,a) values (1,'hey')"
 
     # query over data gets data
     conn = get(url, P, @opts)
     assert conn.state == :sent
     assert conn.status == 200
-    assert get_resp_header(conn,"content-type") == "application/json"
-    assert Jazz.decode!(conn.resp_body) == [ [i: 1] ]
+    assert get_resp_header(conn,"content-type") == ["application/json"]
+    assert Jazz.decode!(conn.resp_body) == [ [1,"hey"] ]
   end
 end
