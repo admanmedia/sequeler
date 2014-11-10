@@ -38,8 +38,6 @@ iex(1)> k = "testingphrasesforencryption" |> Cipher.generate_key
 "c7eaba361111a87f"
 iex(2)> i = "testingphrasesforencryption" |> Cipher.generate_iv
 "testingphrasesfo"
-iex(3)> sql = "show tables" |> URI.encode_
-encode_query/1       encode_www_form/1
 iex(3)> sql = "show tables" |> URI.encode_www_form
 "show+tables"
 iex(4)> url = "/query?sql=" <> sql
