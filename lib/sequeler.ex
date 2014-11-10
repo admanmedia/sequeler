@@ -6,15 +6,7 @@ defmodule Sequeler do
 
     Hints, snippets and stuff:
 
-    On a new mariadb install, set root password:
-
-    ```
-      use mysql;
-      update user set password=PASSWORD("first_root_pass") where User='root';
-      flush privileges;
-    ```
-
-    Then setup db for code:
+    Setup db for code:
 
     ```
       create database testdb;
@@ -31,9 +23,7 @@ defmodule Sequeler do
   def start(_type, _args) do
 
     # add emysql pool
-    :emysql.add_pool(:db, [ size: 50,
-      user: 'testuser', password: 'testpassword',
-      database: 'testdb', encoding: :utf8 ])
+    :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
     # supervise our plug
     import Supervisor.Spec, warn: false
