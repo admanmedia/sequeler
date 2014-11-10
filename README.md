@@ -34,7 +34,7 @@ Erlang/OTP 17 [erts-6.2] [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [
 
 Running Sequeler on http://localhost:4000
 Interactive Elixir (1.0.2) - press Ctrl+C to exit (type h() ENTER for help)
-iex(1)>k = "testingphrasesforencryption" |> Cipher.generate_key
+iex(1)> k = "testingphrasesforencryption" |> Cipher.generate_key
 "c7eaba361111a87f"
 iex(2)> i = "testingphrasesforencryption" |> Cipher.generate_iv
 "testingphrasesfo"
