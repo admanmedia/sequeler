@@ -1,4 +1,4 @@
-require Logger, as: L
+alias Helpers, as: H
 
 defmodule SequelerTest do
   use ExUnit.Case, async: true
@@ -26,8 +26,8 @@ defmodule SequelerTest do
 
   test "performs query" do
     # prepare table
-    :emysql.execute :db, "drop table if exists test"
-    :emysql.execute :db, "create table test (i int, a varchar(20)) engine=memory"
+    H.query :db, "drop table if exists test"
+    H.query :db, "create table test (i int, a varchar(20)) engine=memory"
 
     # prepare query
     sql = "select * from test" |> URI.encode_www_form
@@ -41,7 +41,7 @@ defmodule SequelerTest do
     assert Jazz.decode!(conn.resp_body) == []
 
     # create data
-    :emysql.execute :db, "insert into test (i,a) values (1,'hey')"
+    H.query :db, "insert into test (i,a) values (1,'hey')"
 
     # query over data gets data
     conn = get(url, P, @opts)

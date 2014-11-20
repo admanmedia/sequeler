@@ -1,3 +1,4 @@
+alias Helpers, as: H
 
 defmodule Sequeler.Controller do
   alias Plug.Conn
@@ -6,12 +7,7 @@ defmodule Sequeler.Controller do
     Actually perform MySQL query and return JSON response.
   """
   def query(conn) do
-    result = :emysql.execute(:db,conn.params["sql"])
-
-    json = case result do
-      {:result_packet, _, _fields, data, _} -> Jazz.encode! data
-      _ -> "[]"
-    end
+    json = H.query(:db,conn.params["sql"]) |> Jazz.encode!
 
     conn
     |> Conn.put_resp_header("content-type", "application/json")

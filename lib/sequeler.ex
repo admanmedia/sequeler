@@ -1,5 +1,5 @@
 require IEx
-require Logger, as: L
+require Logger
 
 defmodule Sequeler do
   @moduledoc """
@@ -37,11 +37,16 @@ end
 
 
 defmodule Sequeler.Plug do
+
+  @moduledoc """
+    Main Plug, this is the router. Centralizes url signature validation too.
+  """
+
   import Plug.Conn
-  import Plug.Logger
   use Plug.Router
   alias Cipher, as: C
 
+  plug Plug.Logger
   plug :match
   plug :dispatch
 
@@ -52,7 +57,7 @@ defmodule Sequeler.Plug do
   def start_link() do
     ["Running ", :bright, "Sequeler", :reset,
       " on ", :green, "http://localhost:4000", :reset]
-    |> IO.ANSI.format(true) |> IO.puts
+    |> IO.ANSI.format(true) |> Logger.info
 
     Plug.Adapters.Cowboy.http __MODULE__, [] # 100 acceptors by default
   end
