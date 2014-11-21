@@ -1,6 +1,6 @@
 require Logger, as: L
 
-defmodule Helpers do
+defmodule Sequeler.Helpers do
 
   def to_db_format(value) do
     case value do
