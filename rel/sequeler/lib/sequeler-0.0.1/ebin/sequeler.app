@@ -1,0 +1,9 @@
+{application,sequeler,
+             [{registered,[]},
+              {description,"sequeler"},
+              {applications,[kernel,stdlib,elixir,logger,cowboy,plug,emysql]},
+              {included_applications,[jazz,cipher]},
+              {mod,{'Elixir.Sequeler',[]}},
+              {vsn,"0.0.1"},
+              {modules,['Elixir.Sequeler','Elixir.Sequeler.Controller',
+                        'Elixir.Sequeler.Helpers','Elixir.Sequeler.Plug']}]}.

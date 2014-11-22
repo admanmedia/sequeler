@@ -6,3 +6,12 @@ erl_crash.dump
 .kateproject.d
 .zedstate
 .directory
+
+# exrm stuff
+/rel/sequeler/bin
+/rel/files
+/rel/log
+/rel/sequeler/erts*
+/rel/sequeler/lib/*
+!/rel/sequeler/lib/sequeler*
+*.tar.gz
