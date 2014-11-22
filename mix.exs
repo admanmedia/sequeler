@@ -23,6 +23,7 @@ defmodule Sequeler.Mixfile do
       {:plug, "0.8.0"},
       {:emysql, github: "Eonblast/Emysql"},
       {:jazz, github: "meh/jazz"},
-      {:cipher, github: "rubencaro/cipher"} ]
+      {:cipher, github: "rubencaro/cipher"},
+      {:exrm, "~> 0.14.12"}]
   end
 end
