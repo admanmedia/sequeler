@@ -3,7 +3,7 @@ defmodule Sequeler.Mixfile do
 
   def project do
     [app: :sequeler,
-     version: "0.0.1",
+     version: get_version_number,
      elixir: "~> 1.0.0",
      deps: deps]
   end
@@ -25,5 +25,13 @@ defmodule Sequeler.Mixfile do
       {:jazz, github: "meh/jazz"},
       {:cipher, github: "rubencaro/cipher"},
       {:exrm, "~> 0.14.12"}]
+  end
+
+  defp get_version_number do
+    commit = :os.cmd('git rev-parse --short HEAD') |> to_string |> String.rstrip(?\n)
+    {{y, m, d}, {_, _, _}} = :calendar.now_to_universal_time(:os.timestamp())
+    v = "1.0.0+#{y}#{m}#{d}_#{commit}"
+    if Mix.env == :dev, do: v = v <> "dev"
+    v
   end
 end
