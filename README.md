@@ -54,3 +54,42 @@ iex(7)> :httpc.request(complete_url)
    {'server', 'Cowboy'}, {'content-length', '10'},
    {'content-type', 'application/json'}], '[["test"]]'}}
 ```
+
+## Deploy
+
+`MIX_ENV=prod mix release`
+
+That will produce, among other things, a `tar.gz` inside `rel/sequeler`. Now
+transfer the file:
+
+```bash
+    scp rel/sequeler/sequeler-<version>.tar.gz user@server:/remote/path
+```
+
+### Install
+
+In the remote server you need to untar the release file and then start the app:
+
+```bash
+    tar -xf sequeler-<version>.tar.gz
+    ./bin/sequeler start
+```
+
+You are done.
+
+### Upgrade
+
+You need to place the release file in its own folder under `releases`, and then
+tell your app to upgrade to that version:
+
+```bash
+    mkdir -p releases/<newversion>
+    cp sequeler-<newversion>.tar.gz releases/<newversion>/sequeler.tar.gz
+    ./bin/sequeler upgrade "<newversion>"
+```
+
+That's it.
+
+### Downgrade
+
+Simply run `./bin/sequeler downgrade "<version>"`.

@@ -1,4 +1,4 @@
-[{release,"sequeler","0.0.1","6.2",
+[{release,"sequeler","1.0.0+20141122_516ac9f","6.2",
           [{kernel,"3.0.3","./lib/kernel-3.0.3"},
            {stdlib,"2.2","./lib/stdlib-2.2"},
            {compiler,"5.0.2","./lib/compiler-5.0.2"},
@@ -13,7 +13,8 @@
            {jazz,"0.2.0","./lib/jazz-0.2.0"},
            {cipher,"0.0.1","./lib/cipher-0.0.1"},
            {plug,"0.8.0","./lib/plug-0.8.0"},
-           {sequeler,"0.0.1","./lib/sequeler-0.0.1"},
+           {sequeler,"1.0.0+20141122_516ac9f",
+                     "./lib/sequeler-1.0.0+20141122_516ac9f"},
            {iex,"1.0.2","./lib/iex-1.0.2"},
            {sasl,"2.4.1","./lib/sasl-2.4.1"}],
           permanent}].

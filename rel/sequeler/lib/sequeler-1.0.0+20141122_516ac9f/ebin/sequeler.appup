@@ -1,0 +1,11 @@
+{"1.0.0+20141122_516ac9f",
+ [{"0.0.1",
+   [{load_module,'Elixir.Sequeler'},
+    {load_module,'Elixir.Sequeler.Controller'},
+    {load_module,'Elixir.Sequeler.Helpers'},
+    {load_module,'Elixir.Sequeler.Plug'}]}],
+ [{"0.0.1",
+   [{load_module,'Elixir.Sequeler.Plug'},
+    {load_module,'Elixir.Sequeler.Helpers'},
+    {load_module,'Elixir.Sequeler.Controller'},
+    {load_module,'Elixir.Sequeler'}]}]}.
