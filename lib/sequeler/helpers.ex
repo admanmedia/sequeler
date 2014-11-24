@@ -15,10 +15,10 @@ defmodule Sequeler.Helpers do
     res = :emysql.execute(db,sql)
     case res do
       {:result_packet, _, _, data, _} -> data
-      {:ok_packet, _,_,_,_,_,_} -> :ok
+      {:ok_packet, _,_,_,_,_,_} -> [] # empty response
       _ ->
         L.warn "Error executing '#{sql}'\nDetails:\n#{inspect res}"
-        []  # empty response
+        [sql: sql, error: inspect res]
     end
   end
 
