@@ -33,6 +33,9 @@ defmodule Sequeler do
     opts = [strategy: :one_for_one, name: Sequeler.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  @version Sequeler.Mixfile.project[:version]
+  def version, do: @version
 end
 
 

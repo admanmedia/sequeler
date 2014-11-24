@@ -1,4 +1,4 @@
-alias Helpers, as: H
+alias Sequeler.Helpers, as: H
 
 defmodule SequelerTest do
   use ExUnit.Case, async: true
