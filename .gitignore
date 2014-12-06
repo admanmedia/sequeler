@@ -8,4 +8,6 @@ erl_crash.dump
 .zedstate
 .directory
 
+/config/prod.exs
+
 /rel
