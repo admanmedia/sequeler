@@ -1,4 +1,3 @@
-require IEx
 require Logger
 
 defmodule Sequeler do
