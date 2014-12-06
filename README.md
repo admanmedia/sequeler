@@ -16,12 +16,14 @@ There should be some tight query timeout, and maybe some injection
 prevention measures mainly to avoid accidents (requests are already signed).
 
 ~~I will use [exrm](https://github.com/bitwalker/exrm) to manage releases.~~
-(Seems too hacky to be used by now, SSL compiling problems)
+(Seems too hacky to be used by now, too inmature yet)
 
-I will use a [custom docker image](https://registry.hub.docker.com/u/rubencaro/elixir_mysql/)
-based on [trenpixster docker image for elixir](https://registry.hub.docker.com/u/trenpixster/elixir/)
-to ease development environment setup and use. That and some simple helper scripts to manage it.
+~~I will use a [custom docker image](https://registry.hub.docker.com/u/rubencaro/elixir_mysql/)~~
+~~based on [trenpixster docker image for elixir](https://registry.hub.docker.com/u/trenpixster/elixir/)~~
+~~to ease development environment setup and use. That and some simple helper scripts to manage it.~~
+(Too much boilerplate but not really useful)
 
+I will use custom low-level Elixir/Erlang scripts to control deploys.
 
 ## Development
 

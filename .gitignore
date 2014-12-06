@@ -3,6 +3,9 @@
 erl_crash.dump
 *.ez
 *.swp
+*.kate-swp
 .kateproject.d
 .zedstate
 .directory
+
+/rel
