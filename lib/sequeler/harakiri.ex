@@ -1,4 +1,3 @@
-require Logger, as: L
 
 defmodule Sequeler.Harakiri do
   use GenServer
@@ -44,7 +43,6 @@ defmodule Sequeler.Harakiri do
 
   def check_file(path, app, action, previous_mtime) do
     new_mtime = File.stat!(path).mtime
-    L.debug inspect([previous_mtime, new_mtime, action, app])
     if previous_mtime && (previous_mtime != new_mtime), do: fire(action, app)
     new_mtime
   end
