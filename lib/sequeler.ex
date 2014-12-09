@@ -27,7 +27,7 @@ defmodule Sequeler do
     # supervise our plug
     import Supervisor.Spec, warn: false
 
-    children = [ worker(Sequeler.Plug, []) ]
+    children = [Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, [])]
 
     opts = [strategy: :one_for_one, name: Sequeler.Supervisor]
     Supervisor.start_link(children, opts)
@@ -56,12 +56,10 @@ defmodule Sequeler.Plug do
   @k Application.get_env(:sequeler, :key_phrase) |> C.generate_key
   @i Application.get_env(:sequeler, :iv_phrase) |> C.generate_iv
 
-  def start_link() do
+  def init(_) do
     ["Running ", :bright, "Sequeler", :reset,
       " on ", :green, "http://localhost:4000", :reset]
     |> IO.ANSI.format(true) |> Logger.info
-
-    Plug.Adapters.Cowboy.http __MODULE__, [] # 100 acceptors by default
   end
 
   get "/query" do

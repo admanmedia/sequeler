@@ -7,29 +7,18 @@ defmodule Sequeler.Harakiri do
     `GenServer`. If any of the files change, then `Application.stop/1` and
     `Application.unload/1` are called.
 
-    Add it to a supervisor like this: `worker(Sequeler.Harakiri, []),`
-    Then start the self killing loop `Sequeler.Harakiri.start`.
-    You can add your files' paths with `Sequeler.Harakiri.watch/1`.
+    Add it to a supervisor like this:
+    `worker( Sequeler.Harakiri, [[ paths: ["file1","file2"] ]] ),`
   """
 
-  def start_link, do: GenServer.start_link(__MODULE__, [], name: :sequeler_hk)
-
-  @doc """
-    Start Harakiri loop
-  """
-  def start, do: GenServer.cast(:sequeler_hk, :loop)
-  def handle_cast(:loop, _from, paths) do
-    loop(paths)
-    {:noreply, paths}
-  end
+  def start_link(args), do: GenServer.start_link(__MODULE__, args)
 
   @doc """
-    Add given path to Harakiri's paths
+    Init callback, spawn the loop process and return the state
   """
-  def watch(path), do: GenServer.call(:sequeler_hk, {:watch, path})
-  def handle_call({:watch, path}, _from, paths)
-    mtime = File.stat! path
-    {:reply, :ok, [ paths | {path,mtime} ]}
+  def init(args) do
+    spawn_link fn -> loop(args[:paths]) end
+    {:ok, args}
   end
 
   @doc """
@@ -39,7 +28,7 @@ defmodule Sequeler.Harakiri do
   def loop(paths, sleep_ms \\ 5_000) do
     paths = paths |> Enum.map(fn({path, mtime}) ->
       {path, check_file(path, mtime)}
-    end
+    end)
     :timer.sleep sleep_ms
     loop paths, sleep_ms
   end

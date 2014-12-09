@@ -5,5 +5,5 @@
   "jazz": {:git, "git://github.com/meh/jazz.git", "e0cf73011f64868534cd229c458e205ce04a6619", []},
   "jsex": {:git, "git://github.com/talentdeficit/jsex.git", "661ce8565aaea22aa3576d4ad5e9d11065fe60f9", []},
   "jsx": {:hex, :jsx, "2.0.4"},
-  "plug": {:hex, :plug, "0.8.0"},
+  "plug": {:hex, :plug, "0.8.3"},
   "ranch": {:hex, :ranch, "1.0.0"}}

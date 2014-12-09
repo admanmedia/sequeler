@@ -20,7 +20,7 @@ defmodule Sequeler.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [ {:cowboy, "~> 1.0.0"}, # plug needs this to be listed before...
-      {:plug, "0.8.0"},
+      {:plug, "0.8.3"},
       {:emysql, github: "Eonblast/Emysql"},
       {:jazz, github: "meh/jazz"},
       {:cipher, github: "rubencaro/cipher"} ]
