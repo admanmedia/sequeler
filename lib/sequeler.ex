@@ -58,9 +58,11 @@ defmodule Sequeler.Plug do
   @i Application.get_env(:sequeler, :iv_phrase) |> C.generate_iv
 
   def init(_) do
-    ["Running ", :bright, "Sequeler", :reset,
-      " on ", :green, "http://localhost:4000", :reset]
-    |> IO.ANSI.format(true) |> Logger.info
+    if Mix.env != :test do
+      ["Running ", :bright, "Sequeler", :reset,
+        " on ", :green, "http://localhost:4000", :reset]
+      |> IO.ANSI.format(true) |> Logger.info
+    end
   end
 
   get "/query" do

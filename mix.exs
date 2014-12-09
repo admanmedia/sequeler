@@ -13,7 +13,7 @@ defmodule Sequeler.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger, :cowboy, :plug, :emysql],
-     included_applications: [:jazz, :cipher],
+     included_applications: [:jazz, :cipher, :harakiri],
      mod: {Sequeler, []}]
   end
 
@@ -23,7 +23,8 @@ defmodule Sequeler.Mixfile do
       {:plug, "0.8.3"},
       {:emysql, github: "Eonblast/Emysql"},
       {:jazz, github: "meh/jazz"},
-      {:cipher, github: "rubencaro/cipher"} ]
+      {:cipher, github: "rubencaro/cipher"},
+      {:harakiri, github: "elpulgardelpanda/harakiri"}]
   end
 
   defp get_version_number do
