@@ -1,3 +1,4 @@
+require Logger
 
 defmodule Sequeler.Harakiri do
   use GenServer
@@ -48,14 +49,17 @@ defmodule Sequeler.Harakiri do
   end
 
   def fire(:stop,app) do
-    :ok = Application.stop app
-    :ok = Application.unload app
+    res = Application.stop(app)
+    Logger.info "Stopped #{app}... #{inspect res}"
+    res = Application.unload app
+    Logger.info "Unloaded #{app}... #{inspect res}"
     :ok
   end
 
   def fire(:restart, app) do
     fire :stop, app
-    {:ok, _} = Application.ensure_all_started app
+    res = Application.ensure_all_started app
+    Logger.info "Started #{app}... #{inspect res}"
     :ok
   end
 end
