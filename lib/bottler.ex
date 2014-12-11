@@ -51,8 +51,16 @@ defmodule Bottler do
     running apps. Returns `:ok` when done.
   """
   def restart do
-    L.info "Restarting..."
+    L.info "Restarting #{@servers |> Keyword.keys |> Enum.join(",")}..."
 
+    results = @servers |> Keyword.values |> H.in_tasks( fn(args) ->
+            cmd_str = "ssh epdp@<%= public_ip %> -e 'touch tmp/restart'"
+                      |> EEx.eval_string(args) |> to_char_list
+            :os.cmd(cmd_str)
+          end )
+
+    all_ok = Enum.all?(results, &(&1 == []))
+    if all_ok, do: :ok, else: {:error, results}
   end
 
 end
