@@ -54,7 +54,7 @@ defmodule Bottler do
     L.info "Restarting #{@servers |> Keyword.keys |> Enum.join(",")}..."
 
     results = @servers |> Keyword.values |> H.in_tasks( fn(args) ->
-            cmd_str = "ssh epdp@<%= public_ip %> -e 'touch tmp/restart'"
+            cmd_str = "ssh epdp@<%= public_ip %> 'touch tmp/restart'"
                       |> EEx.eval_string(args) |> to_char_list
             :os.cmd(cmd_str)
           end )
