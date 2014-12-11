@@ -16,7 +16,6 @@ defmodule Sequeler do
 
   """
 
-
   use Application
 
   def start(_type, _args) do
@@ -26,12 +25,13 @@ defmodule Sequeler do
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
-    children = [Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, [])]
+    hk_opts = [ paths: ["tmp/restart"], app: :sequeler, action: :restart ]
+
+    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []),
+                 worker(Harakiri, [hk_opts]) ]
 
     opts = [strategy: :one_for_one, name: Sequeler.Supervisor]
-    res = Supervisor.start_link(children, opts)
-
-    res
+    Supervisor.start_link(children, opts)
   end
 
   @version Sequeler.Mixfile.project[:version]
