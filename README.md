@@ -60,3 +60,5 @@ iex(7)> :httpc.request(complete_url)
 ## Deploy
 
 `MIX_ENV=prod mix deploy`
+
+Use with care.
