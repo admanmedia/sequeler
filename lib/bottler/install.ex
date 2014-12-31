@@ -49,7 +49,7 @@ defmodule Bottler.Install do
           'tar --directory /home/epdp/sequeler/releases/#{vsn}/ -xf /tmp/sequeler.tar.gz'
     SSH.cmd! conn, 'ln -sfn /home/epdp/sequeler/tmp /home/epdp/sequeler/releases/#{vsn}/tmp'
     SSH.cmd! conn,
-          'ln -sfn /home/epdp/sequeler/current/releases/#{vsn} /home/epdp/sequeler/current/boot'
+          'ln -sfn /home/epdp/sequeler/releases/#{vsn}/releases/#{vsn} /home/epdp/sequeler/releases/#{vsn}/boot'
   end
 
   defp make_current(conn, vsn) do
