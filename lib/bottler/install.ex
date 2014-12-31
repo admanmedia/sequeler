@@ -47,9 +47,9 @@ defmodule Bottler.Install do
     SSH.cmd! conn, 'mkdir -p /home/epdp/sequeler/tmp'
     {:ok, _, 0} = SSH.run conn,
           'tar --directory /home/epdp/sequeler/releases/#{vsn}/ -xf /tmp/sequeler.tar.gz'
-    SSH.cmd! conn, 'ln -sf /home/epdp/sequeler/tmp /home/epdp/sequeler/releases/#{vsn}/tmp'
+    SSH.cmd! conn, 'ln -sfn /home/epdp/sequeler/tmp /home/epdp/sequeler/releases/#{vsn}/tmp'
     SSH.cmd! conn,
-          'ln -sf /home/epdp/sequeler/current/releases/#{vsn} /home/epdp/sequeler/current/boot'
+          'ln -sfn /home/epdp/sequeler/current/releases/#{vsn} /home/epdp/sequeler/current/boot'
   end
 
   defp make_current(conn, vsn) do

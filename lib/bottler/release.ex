@@ -11,7 +11,7 @@ defmodule Bottler.Release do
   def release do
     L.info "Compiling deps for release..."
     :ok = cmd "MIX_ENV=prod mix deps.get"
-    :ok = cmd "MIX_ENV=prod mix compile"
+    :ok = cmd "MIX_ENV=prod mix compile --force" # force to ensure vsn refresh
 
     L.info "Generating release tar.gz ..."
     File.mkdir_p! "rel"
