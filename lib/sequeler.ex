@@ -25,10 +25,11 @@ defmodule Sequeler do
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
-    hk_opts = [ paths: ["tmp/restart"], app: :sequeler, action: :restart ]
+    Harakiri.Worker.add %{ paths: ["tmp/restart"],
+                           app: :sequeler,
+                           action: :restart }
 
-    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []),
-                 worker(Harakiri, [hk_opts]) ]
+    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []) ]
 
     opts = [strategy: :one_for_one, name: Sequeler.Supervisor]
     Supervisor.start_link(children, opts)
