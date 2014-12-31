@@ -13,7 +13,7 @@ defmodule Sequeler.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger, :cowboy, :plug, :emysql, :harakiri],
-     included_applications: [:jazz, :cipher],
+     included_applications: [:jazz, :cipher, :mix],
      mod: {Sequeler, []}]
   end
 
