@@ -56,3 +56,9 @@ iex(7)> :httpc.request(complete_url)
    {'server', 'Cowboy'}, {'content-length', '10'},
    {'content-type', 'application/json'}], '[["test"]]'}}
 ```
+
+## Deploy
+
+`MIX_ENV=prod mix deploy`
+
+Use with care.

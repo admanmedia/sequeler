@@ -13,7 +13,7 @@ defmodule Sequeler.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger, :cowboy, :plug, :emysql, :harakiri],
-     included_applications: [:jazz, :cipher],
+     included_applications: [:jazz, :cipher, :mix],
      mod: {Sequeler, []}]
   end
 
@@ -29,8 +29,7 @@ defmodule Sequeler.Mixfile do
 
   defp get_version_number do
     commit = :os.cmd('git rev-parse --short HEAD') |> to_string |> String.rstrip(?\n)
-    {{y, m, d}, {_, _, _}} = :calendar.now_to_universal_time(:os.timestamp())
-    v = "1.0.0+#{y}#{m}#{d}_#{commit}"
+    v = "1.0.0+#{commit}"
     if Mix.env == :dev, do: v = v <> "dev"
     v
   end

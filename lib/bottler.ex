@@ -7,7 +7,7 @@ defmodule Bottler do
 
   To run:
   ```
-  run_erl -daemon /tmp/sequeler/pipes/ /tmp/sequeler/log "erl -boot /tmp/sequeler/releases/1.0.0+20141130_3930bc3/start -config /tmp/sequeler/releases/1.0.0+20141130_3930bc3/sys -env ERL_LIBS /tmp/sequeler/lib -sname sequeler"
+  run_erl -daemon /tmp/sequeler/pipes/ /tmp/sequeler/log "erl -boot /tmp/sequeler/current/boot/start -config /tmp/sequeler/current/boot/sys -env ERL_LIBS /tmp/sequeler/current/lib -sname sequeler"
   ```
   To attach:
   ```
@@ -47,20 +47,24 @@ defmodule Bottler do
   def install, do: Bottler.Install.install(@servers)
 
   @doc """
-    Restart apps on remote servers. Wait until _current_ release is seen on
-    running apps. Returns `:ok` when done.
+    Restart apps on remote servers.
+
+    TODO: Wait until _current_ release is seen on running apps.
+
+    Returns `:ok` when done.
   """
   def restart do
     L.info "Restarting #{@servers |> Keyword.keys |> Enum.join(",")}..."
 
     results = @servers |> Keyword.values |> H.in_tasks( fn(args) ->
-            cmd_str = "ssh epdp@<%= public_ip %> 'touch tmp/restart'"
+            cmd_str = "ssh epdp@<%= public_ip %> 'touch sequeler/tmp/restart'"
                       |> EEx.eval_string(args) |> to_char_list
-            :os.cmd(cmd_str)
+            res = :os.cmd(cmd_str)
+            res
           end )
 
     all_ok = Enum.all?(results, &(&1 == []))
-    if all_ok, do: :ok, else: {:error, results}
+    if all_ok, do: :ok, else: {:error, to_string(results)}
   end
 
 end

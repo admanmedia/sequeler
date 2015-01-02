@@ -2,7 +2,7 @@
   "cowboy": {:hex, :cowboy, "1.0.0"},
   "cowlib": {:hex, :cowlib, "1.0.0"},
   "emysql": {:git, "git://github.com/Eonblast/Emysql.git", "c7e2103f8b737667f0128802e8de2f0d5ed2fa5c", []},
-  "harakiri": {:git, "git://github.com/elpulgardelpanda/harakiri.git", "c83be2698af741bbea1bd4a9dc952ebdb1fdf6f2", []},
+  "harakiri": {:git, "git://github.com/elpulgardelpanda/harakiri.git", "48e11b73f67886e977fabf722e6b6e5944ddd369", []},
   "jazz": {:git, "git://github.com/meh/jazz.git", "49f335492aca5516495199dd81dd18b845ebaa69", []},
   "plug": {:hex, :plug, "0.8.3"},
   "ranch": {:hex, :ranch, "1.0.0"}}
