@@ -24,6 +24,8 @@ defmodule Sequeler do
 
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
+    :emysql.add_pool(:db_remote_forrest,
+                     Application.get_env(:sequeler, :db_remote_forrest_opts))
 
     Harakiri.Worker.add %{ paths: ["/home/epdp/sequeler/tmp/restart"],
                            app: :sequeler,
@@ -73,6 +75,19 @@ defmodule Sequeler.Plug do
 
     conn = case valid? do
       true -> conn |> fetch_params |> Sequeler.Controller.query
+      false -> resp(conn, 401, "Unauthorized")
+    end
+
+    send_resp conn
+  end
+
+  get "/check_sync_status" do
+
+    path = "/check_sync_status?" <> conn.query_string
+    valid? = C.validate_signed_url(path, @k, @i)
+
+    conn = case valid? do
+      true -> conn |> fetch_params |> Sequeler.Controller.check_sync_status
       false -> resp(conn, 401, "Unauthorized")
     end
 

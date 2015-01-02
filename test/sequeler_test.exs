@@ -50,4 +50,47 @@ defmodule SequelerTest do
     assert get_resp_header(conn,"content-type") == ["application/json"]
     assert Jazz.decode!(conn.resp_body) == [ [1,"hey"] ]
   end
+
+  test "performs check_sync_status" do
+    # prepare table
+    for db <- [:db, :db_remote_forrest] do
+      :emysql.execute db, "drop table if exists test"
+      :emysql.execute db, "create table test (i int, updated_ts bigint(20)) engine=memory"
+    end
+
+    # prepare query
+    url = "/check_sync_status?table=test" |> C.sign_url(k,i)
+
+    # query with no data gets false, could not check anything
+    conn = get(url, P, @opts)
+    assert conn.status == 200
+    assert get_resp_header(conn,"content-type") == ["application/json"]
+    assert Jazz.decode!(conn.resp_body) == %{"valid" => false}
+
+    # create data, the same everywhere
+    for db <- [:db, :db_remote_forrest] do
+      :emysql.execute db, "insert into test (i,updated_ts) values (1,123456789012345678)"
+    end
+
+    # query over data gets true
+    conn = get(url, P, @opts)
+    assert Jazz.decode!(conn.resp_body) == %{"valid" => true}
+
+    # change remote one
+    :emysql.execute :db_remote_forrest,
+                "insert into test (i,updated_ts) values (1,123456789012345679)"
+
+    # query gets false, different updated_ts
+    conn = get(url, P, @opts)
+    assert Jazz.decode!(conn.resp_body) == %{"valid" => false}
+
+    # add the same to local
+    :emysql.execute :db,
+                "insert into test (i,updated_ts) values (1,123456789012345679)"
+
+    # query over data gets true again
+    conn = get(url, P, @opts)
+    assert Jazz.decode!(conn.resp_body) == %{"valid" => true}
+
+  end
 end
