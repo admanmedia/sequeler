@@ -25,7 +25,7 @@ defmodule Sequeler do
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
-    Harakiri.Worker.add %{ paths: ["tmp/restart"],
+    Harakiri.Worker.add %{ paths: ["/home/epdp/sequeler/tmp/restart"],
                            app: :sequeler,
                            action: :restart }
 

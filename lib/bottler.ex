@@ -7,7 +7,7 @@ defmodule Bottler do
 
   To run:
   ```
-  run_erl -daemon /tmp/sequeler/pipes/ /tmp/sequeler/log "erl -boot /tmp/sequeler/releases/1.0.0+20141130_3930bc3/start -config /tmp/sequeler/releases/1.0.0+20141130_3930bc3/sys -env ERL_LIBS /tmp/sequeler/lib -sname sequeler"
+  run_erl -daemon /tmp/sequeler/pipes/ /tmp/sequeler/log "erl -boot /tmp/sequeler/current/boot/start -config /tmp/sequeler/current/boot/sys -env ERL_LIBS /tmp/sequeler/current/lib -sname sequeler"
   ```
   To attach:
   ```
