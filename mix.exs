@@ -24,7 +24,8 @@ defmodule Sequeler.Mixfile do
       {:emysql, github: "Eonblast/Emysql"},
       {:jazz, github: "meh/jazz"},
       {:cipher, github: "rubencaro/cipher"},
-      {:harakiri, github: "elpulgardelpanda/harakiri"}]
+      {:harakiri, github: "elpulgardelpanda/harakiri"},
+      {:bottler, github: "elpulgardelpanda/bottler"}]
   end
 
   defp get_version_number do
