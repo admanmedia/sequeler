@@ -8,10 +8,46 @@ defmodule Sequeler do
     Setup db for code:
 
     ```
-      create database testdb;
-      grant all privileges on testdb.* to 'testuser'@'localhost' identified by
-          'testpassword' with grant option;
-      flush privileges;
+        create database testdb;
+        grant all privileges on testdb.* to 'testuser'@'localhost' identified by
+            'testpassword' with grant option;
+        flush privileges;
+    ```
+
+    To run (embedded erlang):
+    ```
+        run_erl -daemon /home/epdp/sequeler/pipes/ /home/epdp/sequeler/log
+          "erl -boot /home/epdp/sequeler/current/boot/start
+               -config /home/epdp/sequeler/current/boot/sys
+               -env ERL_LIBS /home/epdp/sequeler/current/lib
+               -sname sequeler"
+    ```
+
+    To connect (embedded erlang):
+    ```
+        to_erl /home/epdp/sequeler/pipes/erlang.pipe.1
+    ```
+
+    To run (interactive erlang):
+    ```
+        erl -boot /home/epdp/sequeler/current/boot/start
+            -config /home/epdp/sequeler/current/boot/sys
+            -env ERL_LIBS /home/epdp/sequeler/current/lib
+            -sname sequeler
+    ```
+
+    To run (detached elixir):
+    ```
+        iex --erl "-boot /home/epdp/sequeler/current/boot/start
+                   -config /home/epdp/sequeler/current/boot/sys
+                   -env ERL_LIBS /home/epdp/sequeler/current/lib"
+            --name sequeler@localhost
+            --detached
+    ```
+
+    To connect (interactive elixir):
+    ```
+        iex --remsh "sequeler@localhost" --sname connector
     ```
 
   """
