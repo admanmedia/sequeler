@@ -61,11 +61,13 @@ defmodule Sequeler do
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
+    # respond to harakiri restarts
     Harakiri.Worker.add %{ paths: ["/home/epdp/sequeler/tmp/restart"],
                            app: :sequeler,
                            action: :restart }
 
-    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []) ]
+    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []),
+                 worker(Task, [Sequeler,:alive_loop,[]]) ]
 
     opts = [strategy: :one_for_one, name: Sequeler.Supervisor]
     Supervisor.start_link(children, opts)
@@ -73,6 +75,15 @@ defmodule Sequeler do
 
   @version Sequeler.Mixfile.project[:version]
   def version, do: @version
+
+  @doc """
+    Tell the world outside we are alive
+  """
+  def alive_loop do
+    :os.cmd 'touch /home/epdp/sequeler/tmp/alive'
+    :timer.sleep 5_000
+    alive_loop
+  end
 end
 
 

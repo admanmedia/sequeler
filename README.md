@@ -23,7 +23,10 @@ prevention measures mainly to avoid accidents (requests are already signed).
 ~~to ease development environment setup and use. That and some simple helper scripts to manage it.~~
 (Too much boilerplate but not really useful)
 
-I will use custom low-level Elixir/Erlang scripts to control deploys.
+I will use custom low-level Elixir/Erlang scripts to control deploys:
+
+* [Bottler](https://github.com/elpulgardelpanda/bottler)
+* [Harakiri](https://github.com/elpulgardelpanda/harakiri)
 
 ## Development
 
@@ -61,4 +64,13 @@ iex(7)> :httpc.request(complete_url)
 
 `MIX_ENV=prod mix deploy`
 
-Use with care. 
+Use with care.
+
+
+## TODOS
+
+* Dinamize paths & users
+* Use bottler external lib
+* Start scripts
+* Watchdog scripts
+
