@@ -33,7 +33,16 @@ defmodule Sequeler do
         erl -boot /home/epdp/sequeler/current/boot/start
             -config /home/epdp/sequeler/current/boot/sys
             -env ERL_LIBS /home/epdp/sequeler/current/lib
-            -sname sequeler
+            -name sequeler@localhost
+    ```
+
+    To run (interactive elixir, using app's own `iex`):
+    ```
+        erl -boot /home/epdp/sequeler/current/boot/start
+            -config /home/epdp/sequeler/current/boot/sys
+            -env ERL_LIBS /home/epdp/sequeler/current/lib
+            -name sequeler@localhost
+            -noshell -user Elixir.IEx.CLI -extra --no-halt
     ```
 
     To run (detached elixir):
@@ -45,9 +54,30 @@ defmodule Sequeler do
             --detached
     ```
 
+    To run (detached erlang):
+    ```
+        erl -boot /home/epdp/sequeler/current/boot/start
+            -config /home/epdp/sequeler/current/boot/sys
+            -env ERL_LIBS /home/epdp/sequeler/current/lib
+            -name sequeler@localhost
+            -detached
+    ```
+
     To connect (interactive elixir):
     ```
-        iex --remsh "sequeler@localhost" --sname connector
+        iex --remsh sequeler@localhost --sname connector
+    ```
+
+    To connect (interactive erlang):
+    ```
+        erl -remsh sequeler@localhost -sname connector
+    ```
+
+    To connect (interactive elixir, using app's own `iex`):
+    ```
+        erl -remsh sequeler@localhost -sname connector
+        # and then ...
+        (sequeler@localhost)1> 'Elixir.IEx':start().
     ```
 
   """
