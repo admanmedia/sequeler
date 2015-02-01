@@ -1,4 +1,4 @@
-%{"bottler": {:git, "git://github.com/elpulgardelpanda/bottler.git", "c793cb9d4abe313929c323004ddad89950e342ba", []},
+%{"bottler": {:git, "git://github.com/elpulgardelpanda/bottler.git", "f0b95b80131d80483472480e1ee4aade8ab03f11", []},
   "cipher": {:git, "git://github.com/rubencaro/cipher.git", "0fb00212fd5aeea27f3060aebb1f56f7e8db6662", []},
   "cowboy": {:hex, :cowboy, "1.0.0"},
   "cowlib": {:hex, :cowlib, "1.0.0"},
