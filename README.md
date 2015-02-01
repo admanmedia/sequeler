@@ -30,6 +30,15 @@ I will use custom low-level Elixir/Erlang scripts to control deploys:
 
 ## Development
 
+Setup db for code:
+
+```sql
+    create database testdb;
+    grant all privileges on testdb.* to 'testuser'@'localhost' identified by
+        'testpassword' with grant option;
+    flush privileges;
+```
+
 Open an interactive terminal with `iex -S mix`. That will get you a server
 on port 4000. Then you can play:
 
@@ -60,17 +69,9 @@ iex(7)> :httpc.request(complete_url)
    {'content-type', 'application/json'}], '[["test"]]'}}
 ```
 
-## Deploy
-
-`MIX_ENV=prod mix deploy`
-
-Use with care.
-
 
 ## TODOS
 
-* Dinamize paths & users
 * Use bottler external lib
-* Start scripts
-* Watchdog scripts
-
+* Get stable in production
+* Complete readme
