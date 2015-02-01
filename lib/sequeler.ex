@@ -1,4 +1,5 @@
 require Logger
+require Sequeler.Helpers, as: H
 
 defmodule Sequeler do
   @moduledoc """
@@ -13,6 +14,8 @@ defmodule Sequeler do
 
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
+
+    "tmp" |> Path.absname |> H.spit
 
     # respond to harakiri restarts
     Harakiri.Worker.add %{ paths: ["/home/epdp/sequeler/tmp/restart"],

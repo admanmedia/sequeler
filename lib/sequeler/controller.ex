@@ -1,4 +1,4 @@
-alias Sequeler.Helpers, as: H
+require Sequeler.Helpers, as: H
 
 defmodule Sequeler.Controller do
   alias Plug.Conn
