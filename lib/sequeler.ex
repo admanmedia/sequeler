@@ -16,7 +16,7 @@ defmodule Sequeler do
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
     # respond to harakiri restarts
-    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.absname
+    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.expand
     Harakiri.Worker.add %{ paths: ["#{tmp_path}/restart"],
                            app: :sequeler,
                            action: :restart }
@@ -35,7 +35,7 @@ defmodule Sequeler do
     Tell the world outside we are alive
   """
   def alive_loop do
-    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.absname
+    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.expand
     :os.cmd 'touch #{tmp_path}/alive'
     :timer.sleep 5_000
     alive_loop
