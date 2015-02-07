@@ -16,8 +16,7 @@ defmodule Sequeler do
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
     # respond to harakiri restarts
-    Logger.info System.cwd
-    tmp_path = "tmp" |> Path.absname
+    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.absname
     Harakiri.Worker.add %{ paths: ["#{tmp_path}/restart"],
                            app: :sequeler,
                            action: :restart }
