@@ -72,6 +72,5 @@ iex(7)> :httpc.request(complete_url)
 
 ## TODOS
 
-* Use bottler external lib
 * Get stable in production
 * Complete readme
