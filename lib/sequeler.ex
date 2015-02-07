@@ -35,7 +35,7 @@ defmodule Sequeler do
     Tell the world outside we are alive
   """
   def alive_loop do
-    tmp_path = "tmp" |> Path.absname
+    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.absname
     :os.cmd 'touch #{tmp_path}/alive'
     :timer.sleep 5_000
     alive_loop
