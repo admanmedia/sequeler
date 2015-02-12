@@ -1,4 +1,4 @@
-%{"bottler": {:hex, :bottler, "0.2.0"},
+%{"bottler": {:hex, :bottler, "0.3.0"},
   "cipher": {:hex, :cipher, "0.1.0"},
   "cowboy": {:hex, :cowboy, "1.0.0"},
   "cowlib": {:hex, :cowlib, "1.0.0"},

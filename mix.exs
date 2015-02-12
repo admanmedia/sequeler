@@ -25,7 +25,7 @@ defmodule Sequeler.Mixfile do
       {:jazz, github: "meh/jazz"},
       {:cipher, "0.1.0"},
       {:harakiri, "0.2.0"},
-      {:bottler, "0.2.0"} ]
+      {:bottler, "0.3.0"} ]
   end
 
   defp get_version_number do
