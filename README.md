@@ -74,3 +74,6 @@ iex(7)> :httpc.request(complete_url)
 
 * Get stable in production
 * Complete readme
+* Add to travis
+* Consider packageability (yeah)
+* Get time to play with docker
