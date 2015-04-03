@@ -1,5 +1,4 @@
 require Logger
-require Sequeler.Helpers, as: H
 
 defmodule Sequeler do
   @moduledoc """
@@ -10,16 +9,16 @@ defmodule Sequeler do
 
   def start(_type, _args) do
     # supervise our plug
-    import Supervisor.Spec, warn: false
+    import Supervisor.Spec
 
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
 
     # respond to harakiri restarts
     tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.expand
-    Harakiri.Worker.add %{ paths: ["#{tmp_path}/restart"],
-                           app: :sequeler,
-                           action: :restart }
+    Harakiri.add %{ paths: ["#{tmp_path}/restart"],
+                    app: :sequeler,
+                    action: :restart }
 
     children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []),
                  worker(Task, [Sequeler,:alive_loop,[]]) ]
