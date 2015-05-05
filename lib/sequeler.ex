@@ -13,8 +13,8 @@ defmodule Sequeler do
 
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
-    :emysql.add_pool(:db_remote_forrest,
-                     Application.get_env(:sequeler, :db_remote_forrest_opts))
+    :emysql.add_pool(:db_remote,
+                     Application.get_env(:sequeler, :db_remote_opts))
 
     # respond to harakiri restarts
     tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.expand

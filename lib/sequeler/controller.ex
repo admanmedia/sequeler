@@ -16,7 +16,7 @@ defmodule Sequeler.Controller do
 
 
   @doc """
-    Get last updated_ts on local and remote forrest and compare
+    Get last updated_ts on local and remote and compare
   """
   def check_sync_status(conn) do
 
@@ -24,7 +24,7 @@ defmodule Sequeler.Controller do
     sql = "SELECT updated_ts FROM #{table} ORDER BY updated_ts DESC LIMIT 1"
 
     local = H.query(:db,sql)
-    remote = H.query(:db_remote_forrest,sql)
+    remote = H.query(:db_remote,sql)
 
     res = case [local,remote] do
       [[],[]] -> false # empty must fail!

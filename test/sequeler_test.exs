@@ -53,7 +53,7 @@ defmodule SequelerTest do
 
   test "performs check_sync_status" do
     # prepare table
-    for db <- [:db, :db_remote_forrest] do
+    for db <- [:db, :db_remote] do
       :emysql.execute db, "drop table if exists test"
       :emysql.execute db, "create table test (i int, updated_ts bigint(20)) engine=memory"
     end
@@ -68,7 +68,7 @@ defmodule SequelerTest do
     assert Jazz.decode!(conn.resp_body) == %{"valid" => false}
 
     # create data, the same everywhere
-    for db <- [:db, :db_remote_forrest] do
+    for db <- [:db, :db_remote] do
       :emysql.execute db, "insert into test (i,updated_ts) values (1,123456789012345678)"
     end
 
@@ -77,7 +77,7 @@ defmodule SequelerTest do
     assert Jazz.decode!(conn.resp_body) == %{"valid" => true}
 
     # change remote one
-    :emysql.execute :db_remote_forrest,
+    :emysql.execute :db_remote,
                 "insert into test (i,updated_ts) values (1,123456789012345679)"
 
     # query gets false, different updated_ts
