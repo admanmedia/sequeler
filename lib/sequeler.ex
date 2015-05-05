@@ -2,36 +2,28 @@ require Logger
 
 defmodule Sequeler do
   @moduledoc """
-
-    Hints, snippets and stuff:
-
-    Setup db for code:
-
-    ```
-      create database testdb;
-      grant all privileges on testdb.* to 'testuser'@'localhost' identified by
-          'testpassword' with grant option;
-      flush privileges;
-    ```
-
+    Main Application module.
   """
 
   use Application
 
   def start(_type, _args) do
     # supervise our plug
-    import Supervisor.Spec, warn: false
+    import Supervisor.Spec
 
     # start emysql if not started and add pool
     :emysql.add_pool(:db, Application.get_env(:sequeler, :db_opts))
     :emysql.add_pool(:db_remote_forrest,
                      Application.get_env(:sequeler, :db_remote_forrest_opts))
 
-    Harakiri.Worker.add %{ paths: ["/home/epdp/sequeler/tmp/restart"],
-                           app: :sequeler,
-                           action: :restart }
+    # respond to harakiri restarts
+    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.expand
+    Harakiri.add %{ paths: ["#{tmp_path}/restart"],
+                    app: :sequeler,
+                    action: :restart }
 
-    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []) ]
+    children = [ Plug.Adapters.Cowboy.child_spec(:http, Sequeler.Plug, []),
+                 worker(Task, [Sequeler,:alive_loop,[]]) ]
 
     opts = [strategy: :one_for_one, name: Sequeler.Supervisor]
     Supervisor.start_link(children, opts)
@@ -39,6 +31,16 @@ defmodule Sequeler do
 
   @version Sequeler.Mixfile.project[:version]
   def version, do: @version
+
+  @doc """
+    Tell the world outside we are alive
+  """
+  def alive_loop do
+    tmp_path = Application.get_env(:sequeler, :tmp_path, "tmp") |> Path.expand
+    :os.cmd 'touch #{tmp_path}/alive'
+    :timer.sleep 5_000
+    alive_loop
+  end
 end
 
 

@@ -23,9 +23,21 @@ prevention measures mainly to avoid accidents (requests are already signed).
 ~~to ease development environment setup and use. That and some simple helper scripts to manage it.~~
 (Too much boilerplate but not really useful)
 
-I will use custom low-level Elixir/Erlang scripts to control deploys.
+I will use custom low-level Elixir/Erlang scripts to control deploys:
+
+* [Bottler](https://github.com/elpulgardelpanda/bottler)
+* [Harakiri](https://github.com/elpulgardelpanda/harakiri)
 
 ## Development
+
+Setup db for code:
+
+```sql
+    create database testdb;
+    grant all privileges on testdb.* to 'testuser'@'localhost' identified by
+        'testpassword' with grant option;
+    flush privileges;
+```
 
 Open an interactive terminal with `iex -S mix`. That will get you a server
 on port 4000. Then you can play:
@@ -57,8 +69,11 @@ iex(7)> :httpc.request(complete_url)
    {'content-type', 'application/json'}], '[["test"]]'}}
 ```
 
-## Deploy
 
-`MIX_ENV=prod mix deploy`
+## TODOS
 
-Use with care.
+* Get stable in production
+* Complete readme
+* Add to travis
+* Consider packageability (yeah)
+* Get time to play with docker

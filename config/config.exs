@@ -12,7 +12,7 @@ use Mix.Config
 #
 config :logger, :console,
   level: :debug,
-  format: "$time $metadata[$level] $message\n"
+  format: "\n$date $time $message"
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
