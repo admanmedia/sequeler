@@ -29,6 +29,12 @@ I will use custom low-level Elixir/Erlang scripts to control deploys:
 * [Harakiri](https://github.com/elpulgardelpanda/harakiri)
 
 ## Development
+* Install Elixir (`sudo yum install erlang elixir` on Fedora) See [guide](https://gist.github.com/rubencaro/6a28138a40e629b06470)
+* Getting deps mix deps.get
+* Testing mix test
+* Interactive console iex -S mix
+* Deploy mix deploy
+* etc...
 
 Setup db for code:
 

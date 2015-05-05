@@ -4,7 +4,6 @@ config :sequeler, :key_phrase, "unomasuno"
 config :sequeler, :iv_phrase, "memomimamamemima"
 
 servers = [
-  conrad:  [public_ip: '176.58.117.234', private_ip: '192.168.165.72'],
   bardeen: [public_ip: '176.58.102.177', private_ip: '192.168.164.110']
 ]
 
