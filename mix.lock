@@ -1,10 +1,10 @@
-%{"bottler": {:hex, :bottler, "0.4.1"},
+%{"bottler": {:hex, :bottler, "0.5.0"},
   "cipher": {:hex, :cipher, "0.1.0"},
   "cowboy": {:hex, :cowboy, "1.0.0"},
   "cowlib": {:hex, :cowlib, "1.0.0"},
   "emysql": {:git, "git://github.com/Eonblast/Emysql.git", "c7e2103f8b737667f0128802e8de2f0d5ed2fa5c", []},
-  "harakiri": {:hex, :harakiri, "0.4.0"},
+  "harakiri": {:hex, :harakiri, "0.5.0"},
   "jazz": {:git, "git://github.com/meh/jazz.git", "49f335492aca5516495199dd81dd18b845ebaa69", []},
   "plug": {:hex, :plug, "0.8.3"},
   "ranch": {:hex, :ranch, "1.0.0"},
-  "sshex": {:hex, :sshex, "1.0.0"}}
+  "sshex": {:hex, :sshex, "1.1.0"}}
