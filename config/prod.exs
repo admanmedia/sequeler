@@ -13,6 +13,6 @@ config :sequeler, :db_opts, [ size: 5, user: 'epdp',
       password: 'elpulgardb', database: 'rita_production', encoding: :utf8,
       host: servers[:conrad][:private_ip]]
 
-config :sequeler, :db_remote_forrest_opts, [ size: 5, user: 'epdp',
+config :sequeler, :db_forrest_opts, [ size: 5, user: 'epdp',
       password: 'elpulgardb', database: 'rita_production', encoding: :utf8,
       host: servers[:bardeen][:private_ip]]
