@@ -25,8 +25,8 @@ prevention measures mainly to avoid accidents (requests are already signed).
 
 I will use custom low-level Elixir/Erlang scripts to control deploys:
 
-* [Bottler](https://github.com/elpulgardelpanda/bottler)
-* [Harakiri](https://github.com/elpulgardelpanda/harakiri)
+* [Bottler](https://github.com/rubencaro/bottler)
+* [Harakiri](https://github.com/rubencaro/harakiri)
 
 ## Development
 * Install Elixir (`sudo yum install erlang elixir` on Fedora) See [guide](https://gist.github.com/rubencaro/6a28138a40e629b06470)

@@ -4,10 +4,11 @@ config :sequeler, :key_phrase, "unomasuno"
 config :sequeler, :iv_phrase, "memomimamamemima"
 
 servers = [
-  bardeen: [public_ip: '176.58.102.177', private_ip: '192.168.164.110']
+  bardeen: [ip: '176.58.102.177', private_ip: '192.168.164.110']
 ]
 
-config :bottler, :servers, [conrad: servers[:conrad]]
+config :bottler, :params, [servers: servers,
+                           remote_user: "epdp" ]
 
 config :sequeler, :db_opts, [ size: 5, user: 'epdp',
       password: 'elpulgardb', database: 'rita_production', encoding: :utf8,
